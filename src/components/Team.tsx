@@ -3,6 +3,16 @@ import { Github, Linkedin, Twitter, Star, Award, Zap, LucideIcon, ChevronLeft, C
 import { Button } from '@/components/ui/button';
 import { useMousePosition } from '@/hooks/use-mouse-position';
 import { useRef, useState, useEffect } from 'react';
+import { 
+  ShinyText, 
+  AnimatedContainer, 
+  InteractiveButton, 
+  NeonText,
+  WaveText,
+  BounceText,
+  GlitchText,
+  RevealText
+} from '@/components/animations';
 
 // 3D Card Component with cursor tracking
 interface TeamMember {
@@ -142,7 +152,7 @@ const Card3D = ({ member, index, size = 'normal', opacity = 1 }: { member: TeamM
           </div>
           
           {/* Glowing Effect */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-600/20 via-gray-700/20 to-gray-800/20 blur-lg transition-all duration-500" />
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-600/20 via-gray-700/20 to-gray-800/20 transition-all duration-500" />
           
           {/* Floating particles around avatar */}
           <motion.div
@@ -406,7 +416,7 @@ const TeamSlideshow = ({ teamMembers }: { teamMembers: TeamMember[] }) => {
         <>
           <motion.button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-3 rounded-full bg-background/80 backdrop-blur-sm border border-primary/20 hover:bg-primary/10 transition-all duration-300 group"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-3 rounded-full bg-background/80 border border-primary/20 hover:bg-primary/10 transition-all duration-300 group"
             whileHover={{ scale: 1.1, x: -5 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -415,7 +425,7 @@ const TeamSlideshow = ({ teamMembers }: { teamMembers: TeamMember[] }) => {
           
           <motion.button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-3 rounded-full bg-background/80 backdrop-blur-sm border border-primary/20 hover:bg-primary/10 transition-all duration-300 group"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-3 rounded-full bg-background/80 border border-primary/20 hover:bg-primary/10 transition-all duration-300 group"
             whileHover={{ scale: 1.1, x: 5 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -595,22 +605,40 @@ const Team = () => {
     <section id="team" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Meet Our
-            <span className="gradient-text"> Team</span>
-          </h2>
-          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed px-4">
-            Passionate innovators dedicated to pushing the boundaries of technology
-            and creating extraordinary digital experiences.
-          </p>
-        </motion.div>
+        <AnimatedContainer delay={0} direction="up" distance={50}>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <BounceText 
+                delay={0.5} 
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold"
+              >
+                <RevealText 
+                  delay={0.5}
+                  direction="left"
+                  color="primary"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold"
+                >
+                  Meet Our
+                </RevealText>
+              </BounceText>
+              <span className="block sm:inline">
+                <WaveText 
+                  delay={1} 
+                  color="accent" 
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold"
+                >
+                  Team
+                </WaveText>
+              </span>
+            </h2>
+            <AnimatedContainer delay={0.2} direction="up" distance={30}>
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed px-4">
+                Passionate innovators dedicated to pushing the boundaries of technology
+                and creating extraordinary digital experiences.
+              </p>
+            </AnimatedContainer>
+          </div>
+        </AnimatedContainer>
 
         {/* Team Slideshow */}
         <TeamSlideshow teamMembers={teamMembers} />

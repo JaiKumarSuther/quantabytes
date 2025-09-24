@@ -1,6 +1,14 @@
 import { motion } from 'framer-motion';
 import { Github, Twitter, Linkedin, Mail, ArrowUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { 
+  ShinyText, 
+  AnimatedContainer, 
+  InteractiveButton,
+  NeonText,
+  WaveText,
+  BounceText
+} from '@/components/animations';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -45,18 +53,19 @@ const Footer = () => {
         <div className="container mx-auto px-6 py-12 sm:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Brand Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="lg:col-span-1"
-            >
+            <AnimatedContainer delay={0} direction="up" distance={30} className="lg:col-span-1">
               <motion.h3
                 whileHover={{ scale: 1.05 }}
-                className="text-xl sm:text-2xl font-bold gradient-text font-mono mb-4"
+                className="text-xl sm:text-2xl font-bold font-mono mb-4"
               >
-                Quantabytes
+                <ShinyText 
+                  color="primary" 
+                  speed={2.5}
+                  delay={0.5}
+                  className="text-xl sm:text-2xl font-bold font-mono"
+                >
+                  Quantabytes
+                </ShinyText>
               </motion.h3>
               <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
                 Transforming ideas into extraordinary digital experiences with 
@@ -82,7 +91,7 @@ const Footer = () => {
                   </motion.a>
                 ))}
               </div>
-            </motion.div>
+            </AnimatedContainer>
 
             {/* Links Sections */}
             {Object.entries(footerLinks).map(([category, links], categoryIndex) => (

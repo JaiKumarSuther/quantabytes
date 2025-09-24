@@ -5,6 +5,15 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Send, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { 
+  ShinyText, 
+  AnimatedContainer, 
+  InteractiveButton, 
+  NeonText,
+  WaveText,
+  TypewriterText,
+  BounceText
+} from '@/components/animations';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -56,22 +65,46 @@ const Contact = () => {
     <section id="contact" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Let's Build
-            <span className="gradient-text"> Something Amazing</span>
-          </h2>
-          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed px-4">
-            Ready to transform your ideas into extraordinary digital experiences? 
-            Get in touch and let's discuss your next project.
-          </p>
-        </motion.div>
+        <AnimatedContainer delay={0} direction="up" distance={50}>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <WaveText 
+                delay={0.5} 
+                color="primary" 
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold"
+              >
+                Let's Build
+              </WaveText>
+              <span className="block sm:inline">
+                <BounceText 
+                  delay={1}
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold"
+                >
+                  <ShinyText 
+                    color="accent" 
+                    speed={2.5}
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold"
+                  >
+                    Something Amazing
+                  </ShinyText>
+                </BounceText>
+              </span>
+            </h2>
+            <AnimatedContainer delay={0.2} direction="up" distance={30}>
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed px-4">
+                <TypewriterText 
+                  delay={1.5} 
+                  speed={25} 
+                  color="white"
+                  className="text-base sm:text-lg text-muted-foreground"
+                >
+                  Ready to transform your ideas into extraordinary digital experiences? 
+                  Get in touch and let's discuss your next project.
+                </TypewriterText>
+              </p>
+            </AnimatedContainer>
+          </div>
+        </AnimatedContainer>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto px-4">
           {/* Contact Form */}

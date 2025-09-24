@@ -187,14 +187,14 @@ const AnimatedBackground = () => {
       {/* Animated CSS Background */}
       <div className="absolute inset-0 opacity-60">
         <div 
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gray-800/20 rounded-full blur-3xl animate-float" 
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gray-800/20 rounded-full animate-float" 
           style={{ 
             transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px) translateY(${scrollY * 0.1}px)`,
             transition: 'transform 0.1s ease-out'
           }} 
         />
         <div 
-          className="absolute top-3/4 right-1/4 w-80 h-80 bg-gray-700/20 rounded-full blur-3xl animate-float" 
+          className="absolute top-3/4 right-1/4 w-80 h-80 bg-gray-700/20 rounded-full animate-float" 
           style={{ 
             animationDelay: '2s',
             transform: `translate(${-mousePosition.x * 15}px, ${-mousePosition.y * 15}px) translateY(${-scrollY * 0.05}px)`,
@@ -202,7 +202,7 @@ const AnimatedBackground = () => {
           }} 
         />
         <div 
-          className="absolute top-1/2 left-3/4 w-72 h-72 bg-gray-900/20 rounded-full blur-3xl animate-float" 
+          className="absolute top-1/2 left-3/4 w-72 h-72 bg-gray-900/20 rounded-full animate-float" 
           style={{ 
             animationDelay: '4s',
             transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px) translateY(${scrollY * 0.08}px)`,
@@ -213,7 +213,7 @@ const AnimatedBackground = () => {
 
       {/* Interactive cursor trail */}
       <div 
-        className="absolute w-6 h-6 bg-gray-800/40 rounded-full blur-sm pointer-events-none animate-mouse-follow"
+        className="absolute w-6 h-6 bg-gray-800/40 rounded-full pointer-events-none animate-mouse-follow"
         style={{
           left: `${(mousePosition.x + 1) * 50}%`,
           top: `${(-mousePosition.y + 1) * 50}%`,

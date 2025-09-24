@@ -2,6 +2,14 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import { 
+  ShinyText, 
+  InteractiveButton, 
+  AnimatedContainer,
+  NeonText,
+  WaveText,
+  BounceText
+} from '@/components/animations';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,41 +32,64 @@ const Header = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold gradient-text font-mono"
-          >
-            Quantabytes
-          </motion.div>
+          <AnimatedContainer delay={0.2} direction="left" distance={30}>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="text-2xl font-bold font-mono"
+            >
+              <ShinyText 
+                color="primary" 
+                speed={2.5}
+                delay={0.5}
+                className="text-2xl font-bold font-mono"
+              >
+                Quantabytes
+              </ShinyText>
+            </motion.div>
+          </AnimatedContainer>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
-              <motion.a
+              <AnimatedContainer
                 key={item.name}
-                href={item.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 + 0.5 }}
-                className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium"
-                whileHover={{ scale: 1.05 }}
+                delay={index * 0.1 + 0.5}
+                direction="down"
+                distance={20}
               >
-                {item.name}
-              </motion.a>
+                <motion.a
+                  href={item.href}
+                  className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium relative group"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <BounceText 
+                    delay={index * 0.1 + 0.7} 
+                    className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium"
+                  >
+                    {item.name}
+                  </BounceText>
+                  <motion.div
+                    className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-accent origin-left"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.a>
+              </AnimatedContainer>
             ))}
           </nav>
 
           {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8 }}
-            className="hidden md:block"
-          >
-            <Button className="glass-button font-medium">
+          <AnimatedContainer delay={0.8} direction="right" distance={30} className="hidden md:block">
+            <InteractiveButton
+              variant="default"
+              className="glass-button font-medium"
+              glowEffect={true}
+              rippleEffect={true}
+            >
               Get Started
-            </Button>
-          </motion.div>
+            </InteractiveButton>
+          </AnimatedContainer>
 
           {/* Mobile Menu Button */}
           <motion.button
@@ -94,16 +125,16 @@ const Header = () => {
                 {item.name}
               </motion.a>
             ))}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-              className="mt-4"
-            >
-              <Button className="glass-button w-full">
+            <AnimatedContainer delay={0.4} direction="left" distance={20} className="mt-4">
+              <InteractiveButton
+                variant="default"
+                className="glass-button w-full"
+                glowEffect={true}
+                rippleEffect={true}
+              >
                 Get Started
-              </Button>
-            </motion.div>
+              </InteractiveButton>
+            </AnimatedContainer>
         </motion.nav>
       </div>
     </motion.header>

@@ -1,6 +1,20 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code, Zap, Globe } from 'lucide-react';
+import { 
+  ShinyText, 
+  AnimatedContainer, 
+  InteractiveButton, 
+  FloatingElements, 
+  ParticleBackground,
+  TypewriterText,
+  WaveText,
+  NeonText,
+  RevealText,
+  MorphingText,
+  InteractiveCard,
+  HolographicCard
+} from '@/components/animations';
 
 const Hero = () => {
   const features = [
@@ -11,6 +25,9 @@ const Hero = () => {
 
   return (
     <section id="home" className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Enhanced Particle Background */}
+      <ParticleBackground particleCount={30} className="opacity-60" />
+      
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center">
         <motion.div
@@ -20,66 +37,87 @@ const Hero = () => {
           className="max-w-4xl mx-auto"
         >
           {/* Main Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2"
-          >
-            Innovating the
-            <br className="sm:hidden" />
-            <span className="block sm:inline">
-              <span className="gradient-text">Future of Tech</span>
-            </span>
-          </motion.h1>
+          <AnimatedContainer delay={0.2} direction="up" distance={50}>
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2">
+              <WaveText 
+                delay={0.5} 
+                color="primary" 
+                className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold"
+              >
+                Innovating the
+              </WaveText>
+              <br className="sm:hidden" />
+              <span className="block sm:inline">
+                <MorphingText
+                  texts={["Future of Tech", "Digital Innovation", "Next Generation", "Tomorrow's Solutions"]}
+                  delay={1}
+                  color="accent"
+                  className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold"
+                />
+              </span>
+            </h1>
+          </AnimatedContainer>
 
           {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4"
-          >
-            At Quantabytes, we transform ideas into extraordinary digital experiences
-            with cutting-edge 3D interfaces and innovative solutions.
-          </motion.p>
+          <AnimatedContainer delay={0.4} direction="up" distance={30}>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
+              <TypewriterText 
+                delay={1.5} 
+                speed={30} 
+                color="white" 
+                className="text-base sm:text-lg md:text-xl lg:text-2xl"
+              >
+                At Quantabytes, we transform ideas into extraordinary digital experiences
+                with cutting-edge 3D interfaces and innovative solutions.
+              </TypewriterText>
+            </p>
+          </AnimatedContainer>
 
           {/* Feature Pills */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 lg:mb-12 px-4"
-          >
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 + index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-                className="glass-card px-4 sm:px-6 py-3 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base w-full sm:w-auto min-w-0"
-              >
-                <feature.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                <span className="font-medium">{feature.text}</span>
-              </motion.div>
-            ))}
-          </motion.div>
+          <AnimatedContainer delay={0.6} direction="up" distance={20}>
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 lg:mb-12 px-4">
+              {features.map((feature, index) => (
+                <InteractiveCard
+                  key={index}
+                  delay={0.8 + index * 0.1}
+                  direction="scale"
+                  interactive={true}
+                  rippleEffect={true}
+                  magneticEffect={true}
+                  glowOnHover={true}
+                  tiltOnHover={true}
+                  size="sm"
+                  className="w-full sm:w-auto min-w-0"
+                >
+                  <div className="flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base group">
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <feature.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                    </motion.div>
+                    <RevealText 
+                      delay={0.8 + index * 0.1} 
+                      direction="up" 
+                      color="primary"
+                      className="font-medium group-hover:text-primary transition-colors duration-300"
+                    >
+                      {feature.text}
+                    </RevealText>
+                  </div>
+                </InteractiveCard>
+              ))}
+            </div>
+          </AnimatedContainer>
 
           {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 relative z-10 w-full max-w-md sm:max-w-none mx-auto"
-          >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button
+          <AnimatedContainer delay={1} direction="up" distance={20}>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 relative z-10 w-full max-w-md sm:max-w-none mx-auto">
+              <InteractiveButton
                 size="lg"
                 className="glass-button group text-sm sm:text-base md:text-lg hover:text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 glow-primary animate-pulse-glow w-full sm:w-auto relative overflow-hidden min-h-[48px]"
+                glowEffect={true}
+                rippleEffect={true}
               >
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
@@ -93,21 +131,19 @@ const Hero = () => {
                 >
                   <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.div>
-              </Button>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button
+              </InteractiveButton>
+              
+              <InteractiveButton
                 variant="outline"
                 size="lg"
                 className="border-primary/30 text-primary hover:text-white hover:bg-primary/10 text-sm sm:text-base md:text-lg px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 hover:glow-primary transition-all duration-300 w-full sm:w-auto relative overflow-hidden min-h-[48px]"
+                glowEffect={true}
+                rippleEffect={true}
               >
                 Get in Touch
-              </Button>
-            </motion.div>
-          </motion.div>
+              </InteractiveButton>
+            </div>
+          </AnimatedContainer>
         </motion.div>
 
         {/* Scroll Indicator with enhanced animation */}

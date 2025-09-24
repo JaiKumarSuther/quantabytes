@@ -98,26 +98,26 @@
 @layer components {
   /* Glass Effect Components */
   .glass-card {
-    @apply bg-card/80 backdrop-blur-xl border border-glass-border rounded-xl;
+    @apply bg-card/90 border border-glass-border rounded-xl;
   }
 
   .glass-button {
-    @apply bg-primary/10 backdrop-blur-md border border-primary/20 text-primary;
+    @apply bg-primary/10 border border-primary/20 text-primary;
     @apply hover:bg-primary/20 hover:border-primary/40 transition-all duration-300;
     @apply shadow-lg shadow-shadow-primary;
   }
 
   /* Glow Effects */
   .glow-primary {
-    box-shadow: 0 0 20px hsl(var(--shadow-primary)), 0 0 40px hsl(var(--shadow-primary));
+    box-shadow: 0 0 10px hsl(var(--shadow-primary)), 0 0 20px hsl(var(--shadow-primary));
   }
 
   .glow-secondary {
-    box-shadow: 0 0 20px hsl(var(--shadow-secondary)), 0 0 40px hsl(var(--shadow-secondary));
+    box-shadow: 0 0 10px hsl(var(--shadow-secondary)), 0 0 20px hsl(var(--shadow-secondary));
   }
 
   .glow-accent {
-    box-shadow: 0 0 20px hsl(var(--shadow-accent)), 0 0 40px hsl(var(--shadow-accent));
+    box-shadow: 0 0 10px hsl(var(--shadow-accent)), 0 0 20px hsl(var(--shadow-accent));
   }
 
   /* Animated Gradient Text */
@@ -213,10 +213,10 @@
 
   @keyframes pulse-glow {
     0%, 100% {
-      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+      box-shadow: 0 0 10px hsl(var(--primary) / 0.3);
     }
     50% {
-      box-shadow: 0 0 40px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--accent) / 0.4);
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.6), 0 0 30px hsl(var(--accent) / 0.4);
     }
   }
 
@@ -342,7 +342,7 @@
   /* Mobile navigation improvements */
   @media (max-width: 768px) {
     .mobile-nav {
-      @apply fixed inset-0 z-50 bg-background/95 backdrop-blur-xl;
+      @apply fixed inset-0 z-50 bg-background/95;
     }
     
     .mobile-nav-content {
