@@ -27,21 +27,21 @@ const Header = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-glass-border"
+      className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-glass-border header-mobile-fix"
     >
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+      <div className="container mx-auto px-4 sm:px-6 py-4 header-container">
+        <div className="flex items-center justify-between min-h-[60px]">
           {/* Logo */}
           <AnimatedContainer delay={0.2} direction="left" distance={30}>
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-bold font-mono"
+              className="text-lg sm:text-xl md:text-2xl font-bold font-mono flex-shrink-0 header-logo"
             >
               <ShinyText 
                 color="primary" 
                 speed={2.5}
                 delay={0.5}
-                className="text-2xl font-bold font-mono"
+                className="text-lg sm:text-xl md:text-2xl font-bold font-mono break-words"
               >
                 Quantabytes
               </ShinyText>
@@ -96,7 +96,7 @@ const Header = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-foreground p-2 relative z-50"
+            className="md:hidden text-foreground p-2 relative z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Toggle mobile menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -112,23 +112,25 @@ const Header = () => {
             isOpen ? 'block' : 'hidden'
           }`}
         >
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="block py-2 text-foreground/80 hover:text-primary transition-colors duration-300"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.name}
-              </motion.a>
-            ))}
+            <div className="space-y-2">
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="block py-3 px-2 text-foreground/80 hover:text-primary transition-colors duration-300 text-center font-medium min-h-[44px] flex items-center justify-center"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
             <AnimatedContainer delay={0.4} direction="left" distance={20} className="mt-4">
               <InteractiveButton
                 variant="default"
-                className="glass-button w-full"
+                className="glass-button w-full min-h-[48px] text-center"
                 glowEffect={true}
                 rippleEffect={true}
               >

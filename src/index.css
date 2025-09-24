@@ -339,6 +339,15 @@
     @apply text-base sm:text-lg md:text-xl;
   }
 
+  /* Header mobile improvements */
+  .header-mobile-fix {
+    @apply overflow-hidden;
+  }
+
+  .header-mobile-fix * {
+    @apply max-w-full;
+  }
+
   /* Mobile navigation improvements */
   @media (max-width: 768px) {
     .mobile-nav {
@@ -347,6 +356,19 @@
     
     .mobile-nav-content {
       @apply flex flex-col items-center justify-center h-full space-y-8;
+    }
+    
+    /* Header mobile specific fixes */
+    .header-mobile-fix {
+      @apply w-full;
+    }
+    
+    .header-mobile-fix .container {
+      @apply px-3;
+    }
+    
+    .header-mobile-fix .flex {
+      @apply gap-2;
     }
   }
 
@@ -415,12 +437,13 @@
     contain: layout style paint;
     min-height: 100vh;
     min-height: 100dvh; /* Dynamic viewport height for mobile */
+    padding-top: 5rem; /* Default padding to account for fixed header */
   }
 
   /* Mobile-specific hero improvements */
   @media (max-width: 640px) {
     .hero-section {
-      padding-top: 2rem;
+      padding-top: 5rem; /* Ensure enough space for fixed header */
       padding-bottom: 2rem;
     }
     
@@ -436,6 +459,10 @@
 
   /* Extra small screens */
   @media (max-width: 375px) {
+    .hero-section {
+      padding-top: 4.5rem; /* Slightly less padding for very small screens */
+    }
+    
     .hero-section h1 {
       font-size: 2rem;
       line-height: 1.2;
@@ -449,6 +476,17 @@
     .hero-section .glass-card {
       padding: 0.75rem 1rem;
       font-size: 0.875rem;
+    }
+    
+    /* Header fixes for very small screens */
+    .header-logo {
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+    
+    .header-container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
   }
 

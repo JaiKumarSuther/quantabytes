@@ -24,7 +24,7 @@ const Hero = () => {
   ];
 
   return (
-    <section id="home" className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24 md:pt-28">
       {/* Enhanced Particle Background */}
       <ParticleBackground particleCount={30} className="opacity-60" />
       
