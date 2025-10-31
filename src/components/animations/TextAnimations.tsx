@@ -92,7 +92,8 @@ export const WaveText: React.FC<WaveTextProps> = ({
   className = '',
   color = 'primary'
 }) => {
-  const letters = children.split('');
+  // Split into words to preserve word boundaries
+  const words = children.split(' ');
 
   const colorClasses = {
     primary: 'text-primary',
@@ -100,26 +101,46 @@ export const WaveText: React.FC<WaveTextProps> = ({
     secondary: 'text-secondary'
   };
 
+  let letterIndex = 0;
+
   return (
-    <span className={className}>
-      {letters.map((letter, index) => (
-        <motion.span
-          key={index}
-          initial={{ y: 0, rotate: 0 }}
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 10, -10, 0]
+    <span className={className} style={{ wordBreak: 'normal', overflowWrap: 'break-word', hyphens: 'none' }}>
+      {words.map((word, wordIndex) => (
+        <span
+          key={wordIndex}
+          style={{ 
+            display: 'inline-block',
+            wordBreak: 'keep-all',
+            overflowWrap: 'normal',
+            whiteSpace: 'normal'
           }}
-          transition={{
-            duration: 2,
-            delay: delay + index * 0.1,
-            repeat: Infinity,
-            ease: 'easeInOut'
-          }}
-          className={`inline-block ${colorClasses[color]}`}
         >
-          {letter === ' ' ? '\u00A0' : letter}
-        </motion.span>
+          {word.split('').map((letter) => {
+            const currentLetterIndex = letterIndex++;
+            return (
+              <motion.span
+                key={currentLetterIndex}
+                initial={{ y: 0, rotate: 0 }}
+                animate={{
+                  y: [0, -20, 0],
+                  rotate: [0, 10, -10, 0]
+                }}
+                transition={{
+                  duration: 2,
+                  delay: delay + currentLetterIndex * 0.1,
+                  repeat: Infinity,
+                  ease: 'easeInOut'
+                }}
+                className={`inline-block ${colorClasses[color]}`}
+              >
+                {letter}
+              </motion.span>
+            );
+          })}
+          {wordIndex < words.length - 1 && (
+            <span style={{ display: 'inline-block', width: '0.25em' }}>{'\u00A0'}</span>
+          )}
+        </span>
       ))}
     </span>
   );
@@ -321,7 +342,7 @@ interface RevealTextProps {
   delay?: number;
   className?: string;
   direction?: 'left' | 'right' | 'up' | 'down';
-  color?: 'primary' | 'accent' | 'secondary';
+  color?: 'primary' | 'accent' | 'secondary' | 'white';
 }
 
 export const RevealText: React.FC<RevealTextProps> = ({
@@ -331,7 +352,8 @@ export const RevealText: React.FC<RevealTextProps> = ({
   direction = 'up',
   color = 'primary'
 }) => {
-  const letters = children.split('');
+  // Split into words to preserve word boundaries
+  const words = children.split(' ');
 
   const getInitialPosition = () => {
     switch (direction) {
@@ -346,25 +368,46 @@ export const RevealText: React.FC<RevealTextProps> = ({
   const colorClasses = {
     primary: 'text-primary',
     accent: 'text-accent',
-    secondary: 'text-secondary'
+    secondary: 'text-secondary',
+    white: 'text-white'
   };
 
+  let letterIndex = 0;
+
   return (
-    <span className={className}>
-      {letters.map((letter, index) => (
-        <motion.span
-          key={index}
-          initial={{ ...getInitialPosition(), opacity: 0 }}
-          animate={{ x: 0, y: 0, opacity: 1 }}
-          transition={{
-            duration: 0.5,
-            delay: delay + index * 0.05,
-            ease: 'easeOut'
+    <span className={className} style={{ wordBreak: 'normal', overflowWrap: 'break-word', hyphens: 'none', whiteSpace: 'normal' }}>
+      {words.map((word, wordIndex) => (
+        <span
+          key={wordIndex}
+          style={{ 
+            display: 'inline-block',
+            wordBreak: 'keep-all',
+            overflowWrap: 'normal',
+            whiteSpace: 'normal'
           }}
-          className={`inline-block ${colorClasses[color]}`}
         >
-          {letter === ' ' ? '\u00A0' : letter}
-        </motion.span>
+          {word.split('').map((letter, letterInWordIndex) => {
+            const currentLetterIndex = letterIndex++;
+            return (
+              <motion.span
+                key={currentLetterIndex}
+                initial={{ ...getInitialPosition(), opacity: 0 }}
+                animate={{ x: 0, y: 0, opacity: 1 }}
+                transition={{
+                  duration: 0.5,
+                  delay: delay + currentLetterIndex * 0.05,
+                  ease: 'easeOut'
+                }}
+                className={`inline-block ${colorClasses[color]}`}
+              >
+                {letter}
+              </motion.span>
+            );
+          })}
+          {wordIndex < words.length - 1 && (
+            <span style={{ display: 'inline-block', width: '0.25em' }}>{'\u00A0'}</span>
+          )}
+        </span>
       ))}
     </span>
   );

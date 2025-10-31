@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   InteractiveButton, 
   AnimatedContainer,
@@ -13,14 +14,31 @@ const logoPath = '/assets/header-logo.png';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isHomePage = location.pathname === '/';
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
-    { name: 'Team', href: '#team' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/', isHash: false },
+    { name: 'Services', href: '#services', isHash: true },
+    { name: 'Team', href: '#team', isHash: true },
+    { name: 'Testimonials', href: '#testimonials', isHash: true },
+    { name: 'Contact', href: '#contact', isHash: true },
+    { name: 'Careers', href: '/careers', isHash: false },
   ];
+
+  const handleNavClick = (item: typeof navItems[0], e: React.MouseEvent, closeMenu: boolean = false) => {
+    // If it's a hash link and we're not on home page, navigate to home with hash
+    if (item.isHash && !isHomePage) {
+      e.preventDefault();
+      navigate(`/${item.href}`);
+    }
+    // For mobile menu
+    if (closeMenu) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <motion.header
@@ -33,22 +51,23 @@ const Header = () => {
         <div className="flex items-center justify-between min-h-[60px]">
           {/* Logo */}
           <AnimatedContainer delay={0.2} direction="left" distance={30}>
-            <motion.a
-              href="#home"
-              whileHover={{ scale: 1.05 }}
-              className="flex-shrink-0 header-logo flex items-center"
-            >
-              <img 
-                src={logoPath} 
-                alt="Quantabytes Logo" 
-                className="h-10 sm:h-12 md:h-14 w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] object-contain block"
-                loading="eager"
-                style={{ display: 'block', maxWidth: '100%' }}
-                onError={(e) => {
-                  console.error('Logo image failed to load:', logoPath);
-                }}
-              />
-            </motion.a>
+            <Link to="/">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="flex-shrink-0 header-logo flex items-center cursor-pointer"
+              >
+                <img 
+                  src={logoPath} 
+                  alt="Quantabytes Logo" 
+                  className="h-10 sm:h-12 md:h-14 w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] object-contain block"
+                  loading="eager"
+                  style={{ display: 'block', maxWidth: '100%' }}
+                  onError={(e) => {
+                    console.error('Logo image failed to load:', logoPath);
+                  }}
+                />
+              </motion.div>
+            </Link>
           </AnimatedContainer>
 
           {/* Desktop Navigation */}
@@ -60,24 +79,66 @@ const Header = () => {
                 direction="down"
                 distance={20}
               >
-                <motion.a
-                  href={item.href}
-                  className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium relative group"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <BounceText 
-                    delay={index * 0.1 + 0.7} 
-                    className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium"
+                {item.isHash && isHomePage ? (
+                  <motion.a
+                    href={item.href}
+                    className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium relative group"
+                    whileHover={{ scale: 1.05 }}
                   >
-                    {item.name}
-                  </BounceText>
-                  <motion.div
-                    className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-accent origin-left"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.a>
+                    <BounceText 
+                      delay={index * 0.1 + 0.7} 
+                      className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium"
+                    >
+                      {item.name}
+                    </BounceText>
+                    <motion.div
+                      className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-accent origin-left"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.a>
+                ) : item.isHash ? (
+                  <motion.a
+                    href={`/${item.href}`}
+                    onClick={(e) => handleNavClick(item, e)}
+                    className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium relative group"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <BounceText 
+                      delay={index * 0.1 + 0.7} 
+                      className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium"
+                    >
+                      {item.name}
+                    </BounceText>
+                    <motion.div
+                      className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-accent origin-left"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.a>
+                ) : (
+                  <Link to={item.href}>
+                    <motion.div
+                      className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium relative group"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <BounceText 
+                        delay={index * 0.1 + 0.7} 
+                        className="text-foreground/80 hover:text-primary transition-colors duration-300 font-medium"
+                      >
+                        {item.name}
+                      </BounceText>
+                      <motion.div
+                        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-accent origin-left"
+                        initial={{ scaleX: 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.div>
+                  </Link>
+                )}
               </AnimatedContainer>
             ))}
           </nav>
@@ -117,17 +178,46 @@ const Header = () => {
         >
             <div className="space-y-2">
               {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="block py-3 px-2 text-foreground/80 hover:text-primary transition-colors duration-300 text-center font-medium min-h-[44px] flex items-center justify-center"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </motion.a>
+                item.isHash && isHomePage ? (
+                  <motion.a
+                    key={item.name}
+                    href={item.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="block py-3 px-2 text-foreground/80 hover:text-primary transition-colors duration-300 text-center font-medium min-h-[44px] flex items-center justify-center"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </motion.a>
+                ) : item.isHash ? (
+                  <motion.a
+                    key={item.name}
+                    href={`/${item.href}`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="block py-3 px-2 text-foreground/80 hover:text-primary transition-colors duration-300 text-center font-medium min-h-[44px] flex items-center justify-center"
+                    onClick={(e) => handleNavClick(item, e, true)}
+                  >
+                    {item.name}
+                  </motion.a>
+                ) : (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="block py-3 px-2 text-foreground/80 hover:text-primary transition-colors duration-300 text-center font-medium min-h-[44px] flex items-center justify-center"
+                    >
+                      {item.name}
+                    </motion.div>
+                  </Link>
+                )
               ))}
             </div>
             <AnimatedContainer delay={0.4} direction="left" distance={20} className="mt-4">

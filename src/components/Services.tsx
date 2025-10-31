@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   Code, 
   Server, 
@@ -62,7 +63,7 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
               rotate: 360,
               scale: 1.1
             }}
-            className={`absolute top-6 right-6 p-3 rounded-xl ${service.color} transition-all duration-300`}
+            className={`absolute top-[-12px] right-[-12px] p-3 rounded-xl ${service.color} transition-all duration-300`}
           >
             <service.icon size={28} className="text-white" />
           </motion.div>
@@ -175,19 +176,21 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
         {/* CTA Button */}
         <AnimatedContainer delay={index * 0.2 + 1.3} direction="up" distance={20}>
           <div className="mt-auto relative z-10">
-            <InteractiveButton
-              className={`w-full glass-button group ${service.color} hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 text-white hover:text-white`}
-              glowEffect={true}
-              rippleEffect={true}
-            >
-              <span>Learn More</span>
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
+            <Link to={`/services/${service.id}`}>
+              <InteractiveButton
+                className={`w-full glass-button group ${service.color} hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 text-white hover:text-white`}
+                glowEffect={true}
+                rippleEffect={true}
               >
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </motion.div>
-            </InteractiveButton>
+                <span>Learn More</span>
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </motion.div>
+              </InteractiveButton>
+            </Link>
           </div>
         </AnimatedContainer>
 
@@ -353,7 +356,7 @@ const Services = () => {
             </AnimatedContainer>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-16 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 my-16 px-4">
           {services.map((service, index) => (
             <ServiceCard key={service.id} service={service} index={index} />
           ))}

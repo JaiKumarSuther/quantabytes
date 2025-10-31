@@ -10,6 +10,9 @@ import {
   BounceText
 } from '@/components/animations';
 
+// Logo path for the footer
+const logoPath = '/assets/header-logo.png';
+
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -54,19 +57,21 @@ const Footer = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Brand Section */}
             <AnimatedContainer delay={0} direction="up" distance={30} className="lg:col-span-1">
-              <motion.h3
+              <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="text-xl sm:text-2xl font-bold font-mono mb-4"
+                className="mb-4"
               >
-                <ShinyText 
-                  color="primary" 
-                  speed={2.5}
-                  delay={0.5}
-                  className="text-xl sm:text-2xl font-bold font-mono"
-                >
-                  Quantabytes
-                </ShinyText>
-              </motion.h3>
+                <img 
+                  src={logoPath} 
+                  alt="Quantabytes Logo" 
+                  className="h-10 sm:h-12 md:h-14 w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] object-contain block"
+                  loading="lazy"
+                  style={{ display: 'block', maxWidth: '100%' }}
+                  onError={(e) => {
+                    console.error('Logo image failed to load:', logoPath);
+                  }}
+                />
+              </motion.div>
               <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
                 Transforming ideas into extraordinary digital experiences with 
                 cutting-edge 3D interfaces and innovative solutions.
