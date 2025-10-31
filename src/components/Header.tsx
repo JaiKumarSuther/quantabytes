@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { 
-  ShinyText, 
   InteractiveButton, 
   AnimatedContainer,
-  NeonText,
-  WaveText,
   BounceText
 } from '@/components/animations';
+
+// Try importing the logo - fallback to public path if import fails
+const logoPath = '/assets/header-logo.png';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,19 +33,22 @@ const Header = () => {
         <div className="flex items-center justify-between min-h-[60px]">
           {/* Logo */}
           <AnimatedContainer delay={0.2} direction="left" distance={30}>
-            <motion.div
+            <motion.a
+              href="#home"
               whileHover={{ scale: 1.05 }}
-              className="text-lg sm:text-xl md:text-2xl font-bold font-mono flex-shrink-0 header-logo"
+              className="flex-shrink-0 header-logo flex items-center"
             >
-              <ShinyText 
-                color="primary" 
-                speed={2.5}
-                delay={0.5}
-                className="text-lg sm:text-xl md:text-2xl font-bold font-mono break-words"
-              >
-                Quantabytes
-              </ShinyText>
-            </motion.div>
+              <img 
+                src={logoPath} 
+                alt="Quantabytes Logo" 
+                className="h-10 sm:h-12 md:h-14 w-auto max-w-[200px] sm:max-w-[250px] md:max-w-[300px] object-contain block"
+                loading="eager"
+                style={{ display: 'block', maxWidth: '100%' }}
+                onError={(e) => {
+                  console.error('Logo image failed to load:', logoPath);
+                }}
+              />
+            </motion.a>
           </AnimatedContainer>
 
           {/* Desktop Navigation */}

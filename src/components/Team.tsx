@@ -95,7 +95,7 @@ const Card3D = ({ member, index, size = 'normal', opacity = 1 }: { member: TeamM
       className="group perspective-2000 card-3d-cursor"
     >
       <div 
-        className={`relative glass-card text-center h-full overflow-hidden group-hover:glow-primary transition-all duration-700 transform-gpu flex flex-col ${size === 'small' ? 'p-6' : 'p-8'}`}
+        className={`relative glass-card text-center h-full  group-hover:glow-primary transition-all duration-700 transform-gpu flex flex-col ${size === 'small' ? 'p-6' : 'p-8'}`}
         style={{ 
           transform: 'translateZ(10px)',
           opacity: opacity
@@ -134,7 +134,7 @@ const Card3D = ({ member, index, size = 'normal', opacity = 1 }: { member: TeamM
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 p-1 group-hover:scale-110 transition-all duration-500">
             <div className="w-full h-full rounded-full bg-gradient-to-br from-gray-700 via-gray-600 to-gray-800 p-0.5 transition-all duration-500">
               {/* Inner Avatar Circle */}
-              <div className="w-full h-full rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-lg group-hover:shadow-xl transition-all duration-500 overflow-hidden relative">
+              <div className="w-full h-full rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-lg group-hover:shadow-xl transition-all duration-500  relative">
                 {member.image ? (
                   <img 
                     src={member.image} 
@@ -435,7 +435,7 @@ const TeamSlideshow = ({ teamMembers }: { teamMembers: TeamMember[] }) => {
       )}
 
       {/* Three Card Layout */}
-      <div className="relative overflow-hidden">
+      <div className="relative ">
         <div className="flex items-center justify-center gap-2 sm:gap-4 px-4 sm:px-8">
           {/* Previous Card (Left) */}
           <motion.div
@@ -558,7 +558,7 @@ const Team = () => {
       rating: 5,
       color: "from-secondary to-primary",
       icon: Star,
-      image: "/assets/team/talha_satii.png",
+      image: "/assets/team/talha_satti.jpg",
       social: {
         github: "#",
         linkedin: "#",
@@ -602,7 +602,7 @@ const Team = () => {
   ];
 
   return (
-    <section id="team" className="py-24 relative overflow-hidden">
+    <section id="team" className="py-24 relative ">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <AnimatedContainer delay={0} direction="up" distance={50}>

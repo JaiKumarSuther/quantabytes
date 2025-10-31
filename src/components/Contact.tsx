@@ -44,7 +44,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email Us",
-      content: "hello@quantabytes.com",
+      content: "quantabyte.offical@gmail.com",
       action: "Send Email"
     },
     {
